@@ -183,7 +183,7 @@ class LoadImages:  # for inference
         else:
             # Read image
             self.count += 1
-            img0 = cv2.imread(path)  # BGR
+            img0 = cv2.imread(path, cv2.IMREAD_UNCHANGED)  # BGR
             assert img0 is not None, 'Image Not Found ' + path
             #print(f'image {self.count}/{self.nf} {path}: ', end='')
 
@@ -670,7 +670,7 @@ def load_image(self, index):
     img = self.imgs[index]
     if img is None:  # not cached
         path = self.img_files[index]
-        img = cv2.imread(path)  # BGR
+        img = cv2.imread(path, cv2.IMREAD_UNCHANGED)  # BGR
         assert img is not None, 'Image Not Found ' + path
         h0, w0 = img.shape[:2]  # orig hw
         r = self.img_size / max(h0, w0)  # resize image to img_size
@@ -1267,7 +1267,7 @@ def extract_boxes(path='../coco/'):  # from utils.datasets import *; extract_box
     for im_file in tqdm(files, total=n):
         if im_file.suffix[1:] in img_formats:
             # image
-            im = cv2.imread(str(im_file))[..., ::-1]  # BGR to RGB
+            im = cv2.imread(str(im_file), cv2.IMREAD_UNCHANGED)[..., ::-1]  # BGR to RGB
             h, w = im.shape[:2]
 
             # labels
